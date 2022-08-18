@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Singular Cure</title>
+  </head>
+  <body>
+    <div
+      style="
+        width: 100%;
+        background: #fff;
+        word-break: keep-all;
+        padding: 20px 10px;
+      "
+    >
+      <div style="margin: 0 auto; max-width: 600px; width: 100%">
+        <div
+          style="
+            width: 100%;
+            border-radius: 20px;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 5px 5px 20px rgb(205 211 227 / 80%);
+            box-sizing: border-box;
+            line-height: 1.5;
+            font-family: sans-serif;
+          "
+        >
+          <a
+            href="#"
+            target="_blank"
+            style="display: block; margin-bottom: 30px"
+            ><img src="https://evernbucket.s3.ap-northeast-2.amazonaws.com/logo.png" alt="로고" style="width: 100px"
+          /></a>
+          <h1
+            style="
+              margin: 0 0 30px 0;
+              padding-bottom: 20px;
+              font-size: 20px;
+              border-bottom: 1px solid #ddd;
+            "
+          >
+            Welcome to Singular Cure!
+            <br />
+            We'll send you
+            <span style="color: #01afef">verification code</span> for sign up.
+          </h1>
+          <article style="font-size: 14px; line-height: 1.5; color: #707070; word-break: break-all">
+            <p>
+              Hello, Nice to meet
+              you! <%= firstName %>  
+            </p>
+            <% if( firstName == "" ){ %>
+              <p>To sign up, you need to enter the verification code.</p>
+            <% } else { %>  
+              <p>To find password, you need to enter the verification code.</p>
+            <% } %>
+            <p>
+              Please enter the verification code below in your sign-up page.
+            </p>
+            <p style="padding-top: 30px; font-weight: bold">
+              Verification code :
+              <span style="font-size: 16px; color: #01afef"
+                ><%= content %></span
+              >
+            </p>
+          </article>
+          <p
+            style="
+              color: #969696;
+              text-align: center;
+              margin: 30px 0 0;
+              font-size: 12px;
+            "
+          >
+            This email is for outgoing only, so you can't reply.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
