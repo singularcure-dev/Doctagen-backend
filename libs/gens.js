@@ -15,29 +15,29 @@ const index_14 = ["SERPINA1"];
 
 function gens(gene) {
   if (index_1.indexOf(gene) > -1) {
-    return { $in : [/.*Type 2 Diabetes.*/i,/.*Diabetes.*/i,/.*insulin.*/i]};
+    return { $in : [/.*Type 2 Diabetes.*/i,/.*Diabetes.*/i,/.*insulin.*/i, /.*Endocrinologist*./i]};
   } else if (index_2.indexOf(gene) > -1) {
-    return { $in : [/.*macular degeneration.*/i,/.*AMD.*/i,/.*Photodynamic laser therapy.*/i,/.*Photodynamic therapy.*/i,/.*eye Laser therapy.*/i,/.*vision loss.*/i,/.*Dilated eye exam.*/i,/.*eye.*/i]};
+    return { $in : [/.*macular degeneration.*/i,/.*AMD.*/i,/.*Photodynamic laser therapy.*/i,/.*Photodynamic therapy.*/i,/.*eye Laser therapy.*/i,/.*vision loss.*/i,/.*Dilated eye exam.*/i,/.*eye.*/i, /.*retinologist*./i]};
   } else if (index_3.indexOf(gene) > -1) {
-    return { $in : [/.*Celiac Disease.*/i,/.*Celiac.*/i,/.*small intestine.*/i,/.*gluten-free diet.*/i,/.*chronic digestive and immune disorder.*/i,/.*digestive problem.*/i,/.*intestine.*/i]};
+    return { $in : [/.*Celiac Disease.*/i,/.*Celiac.*/i,/.*small intestine.*/i,/.*gluten-free diet.*/i,/.*chronic digestive and immune disorder.*/i,/.*digestive problem.*/i,/.*intestine.*/i, /.*gastroenterologist*./i, /.*endocrinologist*./i, /.*Gastroenterology*./i]};
   } else if (index_4.indexOf(gene) > -1) {
-    return { $in : [/.*chronic kidney failure.*/i,/.*chronic kidney.*/i,/.*dialysis.*/i,/.*kidney transplant.*/i,/.*Glomerular Filtration Rate.*/i,/.*GFR.*/i,/.*Kidney.*/i]};
+    return { $in : [/.*chronic kidney failure.*/i,/.*chronic kidney.*/i,/.*dialysis.*/i,/.*kidney transplant.*/i,/.*Glomerular Filtration Rate.*/i,/.*GFR.*/i,/.*Kidney.*/i, /.*Nephrologist*./i]};
   } else if (index_5.indexOf(gene) > -1) {
-    return { $in : [/.*Familial Hypercholesterolemia.*/i,/.*Hypercholesterolemia.*/i,/.*coronary heart disease.*/i,/.*heart disease.*/i,/.*heart.*/i,/.*LDL.*/i,/.*cholesterol.*/i,/.*coronary.*/i]};
+    return { $in : [/.*Familial Hypercholesterolemia.*/i,/.*Hypercholesterolemia.*/i,/.*coronary heart disease.*/i,/.*heart disease.*/i,/.*heart.*/i,/.*LDL.*/i,/.*cholesterol.*/i,/.*coronary.*/i, /.*endocrinologist*./i, /.*lipidologist*./i]};
   } else if (index_6.indexOf(gene) > -1) {
-    return { $in : [/.*Hereditary Amyloidosis.*/i,/.*Amyloidosis.*/i,/.*transplants.*/i,/.*liver transplantation.*/i,/.*hereditary amyloidosis.*/i,/.*ATTR.*/i,/.*Amyloid.*/i]};
+    return { $in : [/.*Hereditary Amyloidosis.*/i,/.*Amyloidosis.*/i,/.*transplants.*/i,/.*liver transplantation.*/i,/.*hereditary amyloidosis.*/i,/.*ATTR.*/i,/.*Amyloid.*/i, /.*hematologist *./i, /.*hemotology*./i]};
   } else if (index_7.indexOf(gene) > -1) {
-    return { $in : [/.*Hereditary Hemochromatosis.*/i,/.*Hemochromatosis.*/i,/.*phlebotomy.*/i,/.*iron.*/i,/.*iron overload.*/i,/.*blood.*/i]};
+    return { $in : [/.*Hereditary Hemochromatosis.*/i,/.*Hemochromatosis.*/i,/.*phlebotomy.*/i,/.*iron.*/i,/.*iron overload.*/i,/.*blood.*/i, /.*Hematologist*./i, /.*Cardiologist*./i]};
   } else if (index_8.indexOf(gene) > -1) {
-    return { $in : [/.*Hereditary Thrombophilia.*/i,/.*Thrombophilia.*/i,/.*thrombosis.*/i,/.*blood clot.*/i,/.*blood vessel.*/i,/.*anticoagulant therapy.*/i,/.*anticoagulant.*/i]};
+    return { $in : [/.*Hereditary Thrombophilia.*/i,/.*Thrombophilia.*/i,/.*thrombosis.*/i,/.*blood clot.*/i,/.*blood vessel.*/i,/.*anticoagulant therapy.*/i,/.*anticoagulant.*/i, /.*hematologist *./i, /.*Cardiologist*./i]};
   } else if (index_9.indexOf(gene) > -1) {
-    return { $in : [/.*Alzheimer.*/i,/.*memory loss.*/i,/.*Alzheimer’s.*/i]};
+    return { $in : [/.*Alzheimer.*/i,/.*memory loss.*/i,/.*Alzheimer’s.*/i, /.*Neurologist*./i, /.*Neuropsychologist*./i, /.*Neurology*./i]};
   } else if (index_10.indexOf(gene) > -1) {
-    return { $in : [/.*Parkinson's Disease.*/i,/.*nervous system disorder.*/i,/.*tremor.*/i,/.*Parkinson.*/i]};
+    return { $in : [/.*Parkinson's Disease.*/i,/.*nervous system disorder.*/i,/.*tremor.*/i,/.*Parkinson.*/i, /.*Neurologist*./i, /.*Neuropsychologist*./i, /.*Neurology*./i]};
   } else if (index_11.indexOf(gene) > -1) {
-    return { $in : [/.*Hereditary breast cancer.*/i,/.*BREAST CANCER.*/i,/.*mastectomy.*/i,/.*Hereditary ovarian cancer.*/i,/.*BRCA1.*/i,/.*BRCA2.*/i,/.*salpingo-oophorectomy.*/i,/.*OVARIAN CANCER.*/i]};
+    return { $in : [/.*Hereditary breast cancer.*/i,/.*BREAST CANCER.*/i,/.*mastectomy.*/i,/.*Hereditary ovarian cancer.*/i,/.*BRCA1.*/i,/.*BRCA2.*/i,/.*salpingo-oophorectomy.*/i,/.*OVARIAN CANCER.*/i, /.*Breast surgeon*./i, /.*BREAST SURGERY*./i, /.*Breast*./i, /.*Breast neoplasm*./i, /.*Ovarian*./i, /.*gynecologist oncologist*./i, /.*gynecologist*./i]};
   } else if (index_12.indexOf(gene) > -1) {
-    return { $in : [/.*MUTYH-Associated Polyposis.*/i,/.*MAP.*/,/.*Polyposis.*/i,/.*MUTYH.*/i,/.*familial colorectal cancer.*/i,/.*Colonoscopy.*/i,/.*polypectomy.*/i,/.*colectomy.*/i,/.*proctocolectomy.*/i,/.*ileorectal anastomosis (IRA).*/i,/.*ileal pouch-anal anastomosis or J-pouch.*/i,/.*IRA.*/,/.*IPAA.*/i]};
+    return { $in : [/.*MUTYH-Associated Polyposis.*/i,/.*MAP.*/,/.*Polyposis.*/i,/.*MUTYH.*/i,/.*familial colorectal cancer.*/i,/.*Colonoscopy.*/i,/.*polypectomy.*/i,/.*colectomy.*/i,/.*proctocolectomy.*/i,/.*ileorectal anastomosis (IRA).*/i,/.*ileal pouch-anal anastomosis or J-pouch.*/i,/.*IRA.*/,/.*IPAA.*/i, /.*gastroenterologist *./i, /.*colorectal surgeon*./i, /.*Rectal Surgeon*./i]};
   } else if (index_13.indexOf(gene) > -1) {
     return { $in : [/.*G6PD Deficiency.*/i,/.*G6PD.*/i,/.*Glucose-6-phosphate dehydrogenase.*/i,/.*hemolytic anemia.*/i,/.*anemia.*/i,/.*neonatal hyperbilirubinemia.*/i,/.*hyperbilirubinemia.*/i,/.*hemolysis.*/i,/.*blood transfusion.*/i,/.*hemodialysis.*/i,/.*kidney injury.*/i,/.*oxygen therapy.*/i,/.*Hematologist.*/i,]};
   } else if (index_14.indexOf(gene) > -1) {
