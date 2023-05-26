@@ -35,7 +35,7 @@ router.get("/user/list", verifyToken, adminRequired, async (req, res) => {
   }
 
   try {
-    const count = await UsersModel.find(query).count();
+    const count = await UsersModel.find(query).countDocuments();
     const data = await UsersModel.find(query)
       .limit(limit * 1)
       .skip((page - 1) * limit)
@@ -59,7 +59,7 @@ router.get("/user/list", verifyToken, adminRequired, async (req, res) => {
 router.get("/user/word", verifyToken, adminRequired, async (req, res) => {
   const { page = 1, limit = 10, userId } = req.query;
   try {
-    const count = await WordsModel.find({user: userId}).count();
+    const count = await WordsModel.find({user: userId}).countDocuments();
     const data = await WordsModel.find({user: userId})
       .limit(limit * 1)
       .skip((page - 1) * limit)
@@ -137,10 +137,10 @@ router.get("/dashboard", verifyToken, adminRequired, async (req, res) => {
   let thisMonth = moment(new Date(year, month));
   try {
     let data = await Promise.all([
-      UsersModel.find().count(),
-      UsersModel.find({ createdAt: { $gte: today } }).count(), 
-      UsersModel.find({ createdAt: { $gte: thisMonth } }).count(),
-      UsersModel.find({ withdrawAt: { $exists: true } }).count(),
+      UsersModel.find().countDocuments(),
+      UsersModel.find({ createdAt: { $gte: today } }).countDocuments(), 
+      UsersModel.find({ createdAt: { $gte: thisMonth } }).countDocuments(),
+      UsersModel.find({ withdrawAt: { $exists: true } }).countDocuments(),
     ]);
 
     const totalUser = data[0];

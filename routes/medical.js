@@ -32,7 +32,7 @@ router.get("/list", async (req, res) => {
         }
     }
     try {
-        const count = await MedicalModel.find(query).count();
+        const count = await MedicalModel.find(query).countDocuments();
         const data = await MedicalModel.find(query)
             .limit(limit * 1)
             .skip((page - 1) * limit)
@@ -90,7 +90,7 @@ router.get("/word", verifyToken, async (req, res) => {
         user:  req.userId,
     };
     try {
-        const count = await WordsModel.find(query).count();
+        const count = await WordsModel.find(query).countDocuments();
         const data = await WordsModel.find(query)
             .limit(limit * 1)
             .skip((page - 1) * limit)

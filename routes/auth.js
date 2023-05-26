@@ -10,7 +10,7 @@ const { JWT_SecretKey } = require("../config/env");
 router.post("/email", async (req, res) => {
   let { email, findPassword = false } = req.body;
   try {
-    const emailCount = await UsersModel.find({ email: email }).count();
+    const emailCount = await UsersModel.find({ email: email }).countDocuments();
     const user = await UsersModel.findOne({ email: email }).exec();
     if (findPassword == true) {
       if (emailCount < 1) {
