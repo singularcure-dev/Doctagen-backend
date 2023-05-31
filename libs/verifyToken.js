@@ -12,10 +12,12 @@ function verifyToken(req, res, next) {
     if (err)
       return res
         .status(500)
-        .send({ auth: false, message: "아이디와 비밀번호를 다시 확인 하세요." });
+        .send({
+          auth: false,
+          message: "아이디와 비밀번호를 다시 확인 하세요.",
+        });
     req.email = decoded.email;
     req.userId = decoded._id;
-    req.id = decoded.id;
     next();
   });
 }

@@ -1,6 +1,5 @@
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
-let autoIncrement = require("mongoose-auto-increment-fix");
 
 let UsersSchema = new Schema({
   email: {
@@ -32,9 +31,4 @@ let UsersSchema = new Schema({
   withdrawAt: { type: Date },
 });
 
-UsersSchema.plugin(autoIncrement.plugin, {
-  model: "users",
-  field: "id",
-  startAt: 1,
-});
 module.exports = mongoose.model("users", UsersSchema);

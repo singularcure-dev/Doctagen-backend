@@ -39,7 +39,6 @@ router.post("/login", async (req, res) => {
           } else if (user) {
             let userInfo = {
               _id: user._id,
-              id: user.id,
               email: user.email,
             };
 
@@ -47,8 +46,7 @@ router.post("/login", async (req, res) => {
               expiresIn: "30d",
             });
 
-            res
-              .json({ status: 200, success: true, accesstoken: jsonWebToken });
+            res.json({ status: 200, success: true, accesstoken: jsonWebToken });
           }
         }
       );
@@ -61,18 +59,12 @@ router.post("/login", async (req, res) => {
  * 법률정보 동의, 회원정보, 인증파일 입력
  */
 router.post("/join", (req, res) => {
-  const {
-    email,
-    password,
-    firstName,
-    lastName,
-  } = req.body;
+  const { email, password, firstName, lastName } = req.body;
 
   UsersModel.findOne({ email: email }, async (err, user) => {
     if (err) {
       console.log("err", err.message);
-      return res
-        .json({ status: 500, error: true, message: "Server error" });
+      return res.json({ status: 500, error: true, message: "Server error" });
     } else if (user)
       return res.json({
         status: 409,
@@ -89,9 +81,9 @@ router.post("/join", (req, res) => {
 
     await userInfo.save();
 
-    if (userInfo.id == 1 || userInfo == 2) {
-      UsersModel.updateOne({ id: userInfo.id }, { isAdmin: true }).exec();
-    }
+    // if (userInfo.id == 1 || userInfo == 2) {
+    //   UsersModel.updateOne({ id: userInfo.id }, { isAdmin: true }).exec();
+    // }
 
     res.json({
       status: 200,
@@ -108,7 +100,10 @@ router.post("/join", (req, res) => {
 
 router.get("/profile", verifyToken, async (req, res) => {
   try {
-    let data = await UsersModel.findOne({ _id: req.userId }, { password: 0 }).exec();
+    let data = await UsersModel.findOne(
+      { _id: req.userId },
+      { password: 0 }
+    ).exec();
     res.json({ status: 200, success: true, data });
   } catch (err) {
     return res.json({ status: 500, error: true, message: err.message });
@@ -132,7 +127,12 @@ router.put("/pwd", (req, res) => {
       };
 
       UsersModel.updateOne({ email: email }, { $set: data }, (err) => {
-        if (err) return res.json({ status: 500, success: false, message: err.message });
+        if (err)
+          return res.json({
+            status: 500,
+            success: false,
+            message: err.message,
+          });
         res.json({
           status: 200,
           success: true,
@@ -164,7 +164,12 @@ router.put("/user/pwd", verifyToken, (req, res) => {
           password: sha256(req.body.newPassword),
         };
 
-        if (err) return res.json({ status: 500, success: false, message: err.message });
+        if (err)
+          return res.json({
+            status: 500,
+            success: false,
+            message: err.message,
+          });
 
         UsersModel.updateOne({ _id: req.userId }, { $set: data }, (err) => {
           if (err)
@@ -191,7 +196,7 @@ router.put("/user/pwd", verifyToken, (req, res) => {
  *
  */
 router.put("/profile", verifyToken, async (req, res) => {
-  let { firstName, lastName, userTerms } = req.body; 
+  let { firstName, lastName, userTerms } = req.body;
   try {
     UsersModel.findOne({ _id: req.userId }, (err, user) => {
       if (err)
@@ -206,8 +211,11 @@ router.put("/profile", verifyToken, async (req, res) => {
 
         UsersModel.updateOne({ _id: req.userId }, { $set: data }, (err) => {
           if (err)
-            return res
-              .json({ status: 500, success: false, message: err.message });
+            return res.json({
+              status: 500,
+              success: false,
+              message: err.message,
+            });
 
           res.json({ status: 200, success: true });
         });
@@ -219,11 +227,9 @@ router.put("/profile", verifyToken, async (req, res) => {
         });
       }
     });
-
   } catch (err) {
     return res.json({ status: 500, error: true, message: err.message });
   }
-  
 });
 
 /*
@@ -238,7 +244,10 @@ router.put("/withdraw", verifyToken, async (req, res) => {
       lastName: "",
       withdrawAt: new Date(),
     };
-    let withdraw = await UsersModel.updateOne({ _id: req.userId }, { $set: data }).exec();
+    let withdraw = await UsersModel.updateOne(
+      { _id: req.userId },
+      { $set: data }
+    ).exec();
     res.json({
       status: 200,
       success: true,

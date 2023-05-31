@@ -7,8 +7,7 @@ const helmet = require("helmet");
 //MongoDB 접속
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const autoIncrement = require("mongoose-auto-increment-fix");
-
+mongoose.set("strictQuery", true);
 
 const db = mongoose.connection;
 db.on("error", console.error);
@@ -17,11 +16,8 @@ db.once("open", function (data) {
 });
 
 const connect = mongoose.connect(
-  "mongodb://admin:1234@ac-bpisf4e-shard-00-00.zavbrkk.mongodb.net:27017,ac-bpisf4e-shard-00-01.zavbrkk.mongodb.net:27017,ac-bpisf4e-shard-00-02.zavbrkk.mongodb.net:27017/doctagen_01?ssl=true&replicaSet=atlas-8z9h8k-shard-0&authSource=admin&retryWrites=true&w=majority",
-  { useMongoClient: true }
+  "mongodb://admin:1234@ac-bpisf4e-shard-00-00.zavbrkk.mongodb.net:27017,ac-bpisf4e-shard-00-01.zavbrkk.mongodb.net:27017,ac-bpisf4e-shard-00-02.zavbrkk.mongodb.net:27017/doctagen_01?ssl=true&replicaSet=atlas-8z9h8k-shard-0&authSource=admin&retryWrites=true&w=majority"
 );
-autoIncrement.initialize(connect);
-
 
 const admin = require("./routes/admin");
 const accounts = require("./routes/accounts");

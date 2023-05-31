@@ -54,7 +54,7 @@ router.post("/email", async (req, res) => {
     let data = {
       email: email,
       content: certCode,
-      firstName: findPassword == true ? user.firstName : "", 
+      firstName: findPassword == true ? user.firstName : "",
     };
     await sendEmail(data);
     res.json({
@@ -114,7 +114,6 @@ router.post("/google/credential", async (req, res) => {
       } else {
         let userInfo = {
           _id: user._id,
-          id: user.id,
           email: user.email,
         };
         jsonWebToken = jwt.sign(userInfo, JWT_SecretKey, {
@@ -139,7 +138,6 @@ router.post("/google/credential", async (req, res) => {
       await newUser.save();
       let userInfo = {
         _id: newUser._id,
-        id: newUser.id,
         email: newUser.email,
       };
       jsonWebToken = jwt.sign(userInfo, JWT_SecretKey, {
