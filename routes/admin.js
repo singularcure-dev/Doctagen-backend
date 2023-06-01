@@ -18,20 +18,20 @@ router.get("/user/list", verifyToken, adminRequired, async (req, res) => {
   if (inputMode !== undefined && inputMode !== "") {
     if (inputMode == "username") {
       query.$or = [
-        { firstName: { $regex: `.*${searchWord}.*`} }, 
-        { lastName: { $regex: `.*${searchWord}.*`} },
-      ]
+        { firstName: { $regex: `.*${searchWord}.*` } },
+        { lastName: { $regex: `.*${searchWord}.*` } },
+      ];
     } else if (inputMode == "email") {
       query.email = {
         $regex: `.*${searchWord}.*`,
       };
-    } 
+    }
   } else {
     query.$or = [
-      { firstName: { $regex: `.*${searchWord}.*`} }, 
-      { lastName: { $regex: `.*${searchWord}.*`} },
-      { email: { $regex: `.*${searchWord}.*`} },
-    ]
+      { firstName: { $regex: `.*${searchWord}.*` } },
+      { lastName: { $regex: `.*${searchWord}.*` } },
+      { email: { $regex: `.*${searchWord}.*` } },
+    ];
   }
 
   try {
@@ -40,8 +40,11 @@ router.get("/user/list", verifyToken, adminRequired, async (req, res) => {
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .sort({ createdAt: -1 })
+      .lean()
       .exec();
-
+    data.map((item, i) => {
+      item.dataNum = count - 10 * (page - 1) - i;
+    });
     res.json({
       status: 200,
       data,
@@ -59,16 +62,17 @@ router.get("/user/list", verifyToken, adminRequired, async (req, res) => {
 router.get("/user/word", verifyToken, adminRequired, async (req, res) => {
   const { page = 1, limit = 10, userId } = req.query;
   try {
-    const count = await WordsModel.find({user: userId}).countDocuments();
-    const data = await WordsModel.find({user: userId})
+    const count = await WordsModel.find({ user: userId }).countDocuments();
+    const data = await WordsModel.find({ user: userId })
       .limit(limit * 1)
       .skip((page - 1) * limit)
       .sort({ createdAt: -1 })
+      .lean()
       .exec();
     // data numbering
     data.map((item, i) => {
-      item._doc.dataNum = count - (10 * (page - 1)) - i;
-    })
+      item.dataNum = count - 10 * (page - 1) - i;
+    });
 
     res.json({
       status: 200,
@@ -80,7 +84,6 @@ router.get("/user/word", verifyToken, adminRequired, async (req, res) => {
     res.json({ status: 500, error: true, message: err.message });
   }
 });
-
 
 /**
  * 회원 상세 정보
@@ -99,7 +102,7 @@ router.get("/user/:id", verifyToken, adminRequired, async (req, res) => {
 /**
  * 회원 정보 수정
  */
-router.put("/user", verifyToken, adminRequired, async(req, res) => {
+router.put("/user", verifyToken, adminRequired, async (req, res) => {
   let { userId, isAdmin, firstName, lastName } = req.body;
 
   let data = {
@@ -110,7 +113,8 @@ router.put("/user", verifyToken, adminRequired, async(req, res) => {
     updatedAt: new Date(),
   };
   UsersModel.updateOne({ _id: userId }, { $set: data }, (err) => {
-    if (err) return res.json({ status: 500, error: true, message: err.message });
+    if (err)
+      return res.json({ status: 500, error: true, message: err.message });
     res.json({ status: 200, success: true });
   });
 });
@@ -121,7 +125,8 @@ router.put("/user", verifyToken, adminRequired, async(req, res) => {
  */
 router.delete("/user/:id", verifyToken, adminRequired, (req, res) => {
   UsersModel.deleteOne({ _id: req.params.id }, (err) => {
-    if (err) return res.json({ status: 500, error: true, message: err.message });
+    if (err)
+      return res.json({ status: 500, error: true, message: err.message });
     res.json({ status: 200, success: true });
   });
 });
@@ -138,7 +143,7 @@ router.get("/dashboard", verifyToken, adminRequired, async (req, res) => {
   try {
     let data = await Promise.all([
       UsersModel.find().countDocuments(),
-      UsersModel.find({ createdAt: { $gte: today } }).countDocuments(), 
+      UsersModel.find({ createdAt: { $gte: today } }).countDocuments(),
       UsersModel.find({ createdAt: { $gte: thisMonth } }).countDocuments(),
       UsersModel.find({ withdrawAt: { $exists: true } }).countDocuments(),
     ]);
@@ -161,20 +166,19 @@ router.get("/dashboard", verifyToken, adminRequired, async (req, res) => {
 });
 
 router.get("/dashboard/word", verifyToken, adminRequired, async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+  const { page = 1, limit = 10 } = req.query;
   try {
     let data = await WordsModel.aggregate([
       {
         $group: {
-          _id:"$word",
-          count: {$count: {}}
-        }
+          _id: "$word",
+          count: { $count: {} },
+        },
       },
       {
-        $sort: {count: -1 }
+        $sort: { count: -1 },
       },
-    ])
-    .limit(limit * 1);
+    ]).limit(limit * 1);
 
     res.json({
       status: 200,
